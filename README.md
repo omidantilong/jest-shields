@@ -8,5 +8,3 @@
 - copy node.js.yml into your .github/workflows directory
 - copy report.js into your scripts directory
 - copy the report:generate and report:write scripts into your package.json
-
-Todo - store gist id as secret

@@ -1,6 +1,6 @@
 # jest-shields
 
-Generates coverage and test results reports from a jest run. These are then parsed and dumped into a gist, which you can pass to shields.io to generate your badges. Separate files are created in the gist for each badge. Refer to the shields.io documentation for implementation steps.
+Create coverage badges from your tests by parsing the content of jest's json output and dumping the results into a gist.
 
 ## Setup
 

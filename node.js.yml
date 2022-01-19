@@ -1,0 +1,40 @@
+# https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: ${{
+      startsWith(github.event.head_commit.message, 'feat') ||
+      startsWith(github.event.head_commit.message, 'fix') ||
+      startsWith(github.event.head_commit.message, 'test') ||
+      startsWith(github.event.head_commit.message, 'refactor') ||
+      startsWith(github.event.head_commit.message, 'ci') ||
+      startsWith(github.event.head_commit.message, 'build') }}
+    strategy:
+      matrix:
+        node-version: [16.x]
+        # https://nodejs.org/en/about/releases/
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - run: npm install
+      - name: Run tests and collect coverage
+        run: |
+          echo "SECRET=${{ secrets.GIST_SECRET }}" >> $GITHUB_ENV
+          echo "GISTID=${{ secrets.GIST_ID }}" >> $GITHUB_ENV
+          npm run report:generate
+      - name: Generate coverage report
+        run: npm run report:write

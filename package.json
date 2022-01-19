@@ -1,0 +1,12 @@
+{
+  "name": "jest-shields",
+  "version": "0.0.1",
+  "description": "Generate shields.io badge data from jest coverage reports",
+  "main": "report.js",
+  "scripts": {
+    "report:generate": "npm test -- --collectCoverage --outputFile='coverage/report.json' --coverageReporters='json-summary' --json",
+    "report:write": "node scripts/report"
+  },
+  "author": "Omid Kashan",
+  "license": "ISC"
+}
